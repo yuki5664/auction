@@ -13,8 +13,11 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    @item.save
-    redirect_to @item
+    if @item.save
+      redirect_to @item
+    else 
+      render :new
+    end
   end
 
   def edit
@@ -36,7 +39,7 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :price, :seller, :discription, :email, :image_url)
+    params.require(:item).permit(:name, :price, :seller, :description, :email, :image_url)
   end
 
   
